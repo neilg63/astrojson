@@ -1,0 +1,27 @@
+#[macro_use]
+extern crate serde_derive;
+
+extern crate serde_json;
+
+use std::collections::HashMap;
+
+use std::process::Command;
+
+fn main() {
+
+	let mut bodies:HashMap<&str,Vec<f64>> = HashMap::new();
+
+	bodies.insert("jupiter",vec![26.83972, 67.29,1.825]);
+	bodies.insert("ketu",vec![76.39783, 334.39,0.393]);
+
+  let s2 = serde_json::to_string(&bodies).unwrap();
+
+  println!("{:?}",s2);
+
+  let status = Command::new("ls -l").status().unwrap_or_else(|e| {
+	    panic!("failed to execute process: {}", e)
+	});
+	println!("{:?}",status);
+}
+
+

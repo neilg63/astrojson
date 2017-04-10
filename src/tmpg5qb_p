@@ -1,0 +1,11 @@
+extern crate serde;
+use std::collections::HashMap;
+
+fn main() {
+
+	let mut b = HashMap::new();
+
+    println!("Hello, world!");
+}
+
+

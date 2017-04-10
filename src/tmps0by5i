@@ -1,0 +1,32 @@
+#[macro_use]
+extern crate serde_derive;
+
+extern crate serde_json;
+
+use std::collections::HashMap;
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+
+	let mut bodies:HashMap<str,Vec<f64>> = HashMap::new();
+
+	bodies.insert("jupiter",vec![26.83972, 67.29,1.825]);
+	bodies.insert("ketu",vec![76.39783, 334.39,0.393]);
+
+	let point = Point { x: 1, y: 2 };
+
+	let serialized = serde_json::to_string(&point).unwrap();
+
+  println!("{:?}",serialized);
+
+  let s = serde_json::to_string(&point).unwrap();
+
+  println!("{:?}",serialized);
+}
+
+

@@ -1,0 +1,80 @@
+#[macro_use]
+extern crate serde_derive;
+
+extern crate serde_json;
+
+extern crate chrono;
+
+use std::collections::HashMap;
+
+use std::process::Command;
+
+use std::env;
+
+fn main() {
+
+	
+  /*let args = ["-b28.06.1961",
+		  "-ut11.25",
+		  "-fPLEBS",
+		  "-sid1",
+		  "-topo-13.667,65.1,30",
+		  "-house-13.667,65.1,W"];
+
+  let output = Command::new("swetest")
+  	.args(&args)
+  	.output().unwrap_or_else(|e| {
+	    panic!("failed to execute process: {}", e)
+	});
+	let txt:String = String::from_utf8_lossy(&output.stdout).into_owned();
+
+  let data = map_to_lines(txt);
+	
+	let serialized = serde_json::to_string(&data).unwrap();
+	println!("{:?}",serialized)*/;
+
+  let output = Command::new("l")
+    .args(&args)
+    .output().unwrap_or_else(|e| {
+      panic!("failed to execute process: {}", e)
+  });
+  let txt:String = String::from_utf8_lossy(&output.stdout).into_owned();
+
+  let data = map_to_lines(txt);
+
+  c1 = String::from("Hi, this is another sample sentence");
+
+  println!("{:?}", c1);
+
+	//
+}
+
+enum {
+  body(key,lng)
+}
+
+/*struct LineItem {
+  key:String,
+  values:Vec<String>
+}
+
+fn map_to_lines(txt:String) -> Vec<LineItem> {
+  let mut lineItems:Vec<LineItem> = Vec::new();
+
+  let lines = txt.lines().map(|line| line.trim());
+  for line in lines {
+
+    let mut items = line.split_whitespace().collect::<Vec<String>>().map(|str| str.to_string());
+    if items.len() > 1 {
+      let key = items.remove(0);
+      lineItems.push(LineItem{
+        key:key,
+        values:items
+      });
+    }
+  }
+  lineItems
+}*/
+
+
+

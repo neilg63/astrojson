@@ -1,0 +1,14 @@
+[package]
+name = "astro"
+version = "0.1.0"
+authors = ["Neil Gardner <neilgardner1963@gmail.com>"]
+
+[dependencies]
+serde = "0.9.6"
+serde_json = "0.9.5"
+serde_derive = "0.9.6"
+chrono = "*"
+csv = "*"
+grabinput = "*"
+rustc-serialize = "*"
+regex = "*"
