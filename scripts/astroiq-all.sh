@@ -1,0 +1,2 @@
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+$DIR/combined.sh $1 $2 $4 $3 $5 | sed -r 's/^([tg]\.)?swetest.*?$//g' | sed -r 's/:\s+/:/g' | sed -r 's/([a-z0-9_.-])\s\s*(-?[0-9])/\1,\2/g' | sed -r 's/^(([WOPKBCMRTAXH]|CB)-(7|8|9|10|11|12)).*?$//g' | sed -r 's/([a-z0-9_.-])\s\s*(-?[0-9])/\1,\2/g' | sed -r 's/^G-(19|[2-3][0-9]).*?$//g' | sed -r 's/^t\.(ut|et|epsilon_true|nutation|mean_node|true_node|mean_apogee|osc_apogee|intp_apogee|intp_perigee|vertex|mc|armc|ascendant)/\1/g' | awk 'NF'
