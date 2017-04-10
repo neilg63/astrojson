@@ -414,7 +414,7 @@ fn is_within_aspect(val:f64, val2:f64, angle:f64,b1:String,b2:String,aspect:&str
   is_in_range(val,target,orb)
 }
 
-fn match_aspect(mut aspect_vec:Vec<Aspect>,val:f64, val2:f64, angle:f64,b1:String,b2:String,aspect:&str) {
+/*fn match_aspect(mut aspect_vec:Vec<Aspect>,val:f64, val2:f64, angle:f64,b1:String,b2:String,aspect:&str) -> bool {
   let target = (val2+angle)%360.0;
   let orb = calc_orb(b1.clone(), b2.clone(),aspect);
   if is_in_range(val,target,orb) {
@@ -424,8 +424,10 @@ fn match_aspect(mut aspect_vec:Vec<Aspect>,val:f64, val2:f64, angle:f64,b1:Strin
       start: val,
       end: val2
     });
+    return true;
   }
-}
+  return false;
+}*/
 
 fn is_in_range(val:f64, target:f64,tolerance:f64) -> bool {
   let lower = target - tolerance;
