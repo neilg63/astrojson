@@ -1,6 +1,6 @@
 # AstroJSON
 
-AstroJSON is a simple wrapper for the Linux version of the Swiss Ephemeris command line utility that combines one command into many.
+AstroJSON is a simple wrapper for the Linux version of the Swiss Ephemeris command line astrology utility that combines one command into many.
 
 After installing Swiss Ephemeris (apt-get install sweph on Debian / Ubuntu), you should be able to run the bundled shell scripts, which run all potential queries for a given data/time and location.
 
