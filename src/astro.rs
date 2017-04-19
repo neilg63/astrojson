@@ -1,28 +1,13 @@
 use std::collections::HashMap;
 
-pub fn add_aspects(body_lngs:HashMap<String,f64>) -> AspectBands{
-    let mut opposition: Vec<Aspect> = Vec::new();
-  let mut triseptile: Vec<Aspect> = Vec::new();
-  let mut quadnovile: Vec<Aspect> = Vec::new();
-  let mut inconjunction: Vec<Aspect> = Vec::new();
-  let mut biquintile: Vec<Aspect> = Vec::new();
-  let mut sesquisquare: Vec<Aspect> = Vec::new();
-  let mut trine: Vec<Aspect> = Vec::new();
-  let mut tridecile: Vec<Aspect> = Vec::new();
-  let mut biseptile: Vec<Aspect> = Vec::new();
-  let mut square: Vec<Aspect> = Vec::new();
-  let mut binovile: Vec<Aspect> = Vec::new();
-  let mut quintile: Vec<Aspect> = Vec::new();
-  let mut sextile: Vec<Aspect> = Vec::new();
-  let mut septile: Vec<Aspect> = Vec::new();
-  let mut semisquare: Vec<Aspect> = Vec::new();
-  let mut novile: Vec<Aspect> = Vec::new();
-  let mut dectile: Vec<Aspect> = Vec::new();
-  let mut semisextile: Vec<Aspect> = Vec::new();
-  let mut conjunction: Vec<Aspect> = Vec::new();
+pub fn add_aspects(body_lngs:HashMap<String,f64>) -> Vec<AspectData>{
+  //let mut ab = AspectBands::new();
   let mut froms:Vec<String> = Vec::new();
   let pc = body_lngs.clone();
 
+  let mut aspect_groups = aspect_groups();
+
+  let num_aspect_groups = aspect_groups.len();
 
   for (bn,lng) in body_lngs {
     let p2 = pc.clone();
@@ -30,185 +15,27 @@ pub fn add_aspects(body_lngs:HashMap<String,f64>) -> AspectBands{
     for (bn2,lng2) in p2 {
       let mkr = bn2.clone() + "|" + bn.as_str();
       if froms.binary_search(&mkr).is_err() && bn.as_str() != bn2.as_str() {
-        let mk = bn.clone() + "|" + bn2.as_str();
-        if is_within_aspect(lng2,lng,180.0,bn.clone(),bn2.clone(),"opposition") {
-          opposition.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,160.0,bn.clone(),bn2.clone(),"quadnovile") {
-          quadnovile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,(360.0/7.0*3.0),bn.clone(),bn2.clone(),"triseptile") {
-          triseptile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,150.0,bn.clone(),bn2.clone(),"inconjunction") {
-          inconjunction.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,144.0,bn.clone(),bn2.clone(),"sesquisquare") {
-          sesquisquare.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,135.0,bn.clone(),bn2.clone(),"biquintile") {
-          biquintile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,120.0,bn.clone(),bn2.clone(),"trine") {
-          trine.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,108.0,bn.clone(),bn2.clone(),"tridecile") {
-          tridecile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,(360.0/3.5),bn.clone(),bn2.clone(),"biseptile") {
-          biseptile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,90.0,bn.clone(),bn2.clone(),"square") {
-          square.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,80.0,bn.clone(),bn2.clone(),"binovile") {
-          binovile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,72.0,bn.clone(),bn2.clone(),"quintile") {
-          quintile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,60.0,bn.clone(),bn2.clone(),"sextile") {
-          sextile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,(360.0/7.0),bn.clone(),bn2.clone(),"triseptile") {
-          septile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,45.0,bn.clone(),bn2.clone(),"semisquare") {
-          semisquare.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,40.0,bn.clone(),bn2.clone(),"novile") {
-          novile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,36.0,bn.clone(),bn2.clone(),"dectile") {
-          dectile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,30.0,bn.clone(),bn2.clone(),"semisextile") {
-          semisextile.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
-        } else if is_within_aspect(lng2,lng,0.0,bn.clone(),bn2.clone(),"conjunction") {
-          conjunction.push(Aspect{
-            from: bn.to_string(),
-            to: bn2.to_string(),
-            start: lng,
-            end: lng2
-          });
-          froms.push(mk);
+        
+        for i in 0..num_aspect_groups {
+          let mk = bn.clone() + "|" + bn2.as_str();
+          let target = (lng2+aspect_groups[i].angle)%360.0;
+          let orb = calc_orb(bn.clone(), bn2.clone(),aspect_groups[i].name.as_str());
+          if is_in_range(lng,target,orb) {
+            aspect_groups[i].items.push(Aspect{
+              from: bn.clone(),
+              to:  bn2.clone(),
+              start: lng,
+              end: lng2,
+              orb: orb
+            });
+         
+            froms.push(mk);
+          }
         }
       }
     }
   }
-
-  AspectBands {
-    opposition: opposition,
-    quadnovile: quadnovile,
-    triseptile: triseptile,
-    inconjunction: inconjunction,
-    biquintile: biquintile,
-    sesquisquare: sesquisquare,
-    trine: trine,
-    tridecile: tridecile,
-    biseptile: biseptile,
-    square: square,
-    binovile: binovile,
-    quintile: quintile,
-    sextile: sextile,
-    semisquare: semisquare,
-    septile: septile,
-    novile: novile,
-    dectile: dectile,
-    semisextile: semisextile,
-    conjunction: conjunction
-  }
+  aspect_groups
 }
 
 
@@ -260,30 +87,48 @@ pub struct AstroData {
   pub bodies:HashMap<String,AstroObject>,
   pub houses:HashMap<String,Vec<f64>>,
   pub ayanamsas:HashMap<String,f64>,
-  pub aspects:AspectBands
+  pub aspects:Vec<AspectData>
+}
+
+pub fn aspect_groups() -> Vec<AspectData> {
+  let mut ag:Vec<AspectData> = Vec::new();
+  ag.push(AspectData::new("opposition",180.0));
+  ag.push(AspectData::new("quadnovile",160.0));
+  ag.push(AspectData::new("triseptile",(360.0/7.0*3.0) )); // 154.28571
+  ag.push(AspectData::new("inconjunction",150.0));
+  ag.push(AspectData::new("biquintile",135.0));
+  ag.push(AspectData::new("sesquisquare",144.0));
+  ag.push(AspectData::new("trine",120.0));
+  ag.push(AspectData::new("tridecile",108.0));
+  ag.push(AspectData::new("biseptile",(360.0/3.5))); // 102.85714
+  ag.push(AspectData::new("square",90.0));
+  ag.push(AspectData::new("binovile",80.0));
+  ag.push(AspectData::new("quintile",72.0));
+  ag.push(AspectData::new("sextile",60.0));
+  ag.push(AspectData::new("septile",(360.0/7.0))); // 51.42857
+  ag.push(AspectData::new("semisquare",45.0));
+  ag.push(AspectData::new("novile",40.0));
+  ag.push(AspectData::new("dectile",36.0));
+  ag.push(AspectData::new("semisextile",30.0));
+  ag.push(AspectData::new("conjunction",0.0));
+  ag
 }
 
 #[derive(Debug,Serialize, Deserialize)]
-pub struct AspectBands {
-  opposition: Vec<Aspect>,
-  triseptile: Vec<Aspect>,
-  quadnovile:Vec<Aspect>,
-  inconjunction: Vec<Aspect>,
-  biquintile: Vec<Aspect>,
-  sesquisquare: Vec<Aspect>,
-  trine: Vec<Aspect>,
-  tridecile:Vec<Aspect>,
-  biseptile: Vec<Aspect>,
-  square: Vec<Aspect>,
-  binovile: Vec<Aspect>,
-  quintile: Vec<Aspect>,
-  sextile: Vec<Aspect>,
-  septile: Vec<Aspect>,
-  semisquare: Vec<Aspect>,
-  novile: Vec<Aspect>,
-  dectile: Vec<Aspect>,
-  semisextile: Vec<Aspect>,
-  conjunction: Vec<Aspect>
+pub struct AspectData {
+  name: String,
+  angle: f64,
+  items: Vec<Aspect>
+}
+
+impl AspectData {
+  pub fn new(name:&str,angle:f64) -> AspectData {
+    AspectData {
+      name: name.to_string(),
+      angle: angle,
+      items: Vec::new()
+    }
+  }
 }
 
 #[derive(Debug,Serialize, Deserialize)]
@@ -291,7 +136,8 @@ pub struct Aspect {
   from:String,
   to:String,
   start: f64,
-  end: f64
+  end: f64,
+  orb: f64
 }
 
 
@@ -408,11 +254,12 @@ fn is_between(val:f64, lower:f64,upper:f64) -> bool {
   is_in_range(val,target,tolerance)
 }*/
 
-fn is_within_aspect(val:f64, val2:f64, angle:f64,b1:String,b2:String,aspect:&str) -> bool {
+
+/*fn is_within_aspect(val:f64, val2:f64, angle:f64,b1:String,b2:String,aspect:&str) -> bool {
   let target = (val2+angle)%360.0;
   let orb = calc_orb(b1, b2,aspect);
   is_in_range(val,target,orb)
-}
+}*/
 
 /*fn match_aspect(mut aspect_vec:Vec<Aspect>,val:f64, val2:f64, angle:f64,b1:String,b2:String,aspect:&str) -> bool {
   let target = (val2+angle)%360.0;

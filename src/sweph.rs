@@ -12,7 +12,8 @@ pub struct LineItem {
 pub struct KeyParts {
   pub key:String,
   pub section:String,
-  pub mode:String
+  pub mode:String,
+  pub is_float: bool
 }
 
 
@@ -23,12 +24,13 @@ pub fn clean_line(line:&str) -> LineItem {
   let mut key_parts = KeyParts{
     key:key,
     section:"-".to_string(),
-    mode:"-".to_string()
+    mode:"-".to_string(),
+    is_float: false,
   };
   let re = Regex::new(r"^(\w+)([.-])(\w+)$").unwrap();
   let cap = re.captures(first.as_str());
   let val_str = parts.next().unwrap().to_owned();
-  let vals:Vec<f64> = val_str.split(",").map(|s| value_string_to_f64(s)).collect();
+  let vals:Vec<f64> = val_str.split(",").map(|s| value_string_to_f64(s, has_float_key(first.as_str()) )).collect();
   
   match cap {
     Some(matches) => {
@@ -80,7 +82,8 @@ pub fn match_key_parts(matches:Captures,key:&str) -> KeyParts {
   KeyParts{
     key:str_key.to_string(),
     section:str_section.to_string(),
-    mode:str_mode.to_string()
+    mode:str_mode.to_string(),
+    is_float: has_float_key(str_key)
   }
 }
 
@@ -161,9 +164,12 @@ impl DmsToDec for str {
   }
 }
 
-pub fn value_string_to_f64(item:&str) -> f64 {
-  let re = Regex::new(r"(?x)
-      (?P<d>\d{1,3}) # degrees
+pub fn value_string_to_f64(item:&str,is_float:bool) -> f64 {
+  if is_float {
+    item_to_f64(item)
+  } else {
+      let re = Regex::new(r"(?x)
+      \b(?P<d>\d{1,3}) # degrees
       [^0-9]?\s*
       (?P<m>\d{1,2}) # minutes
       [^0-9]?\s*
@@ -173,13 +179,23 @@ pub fn value_string_to_f64(item:&str) -> f64 {
     let cap = re.captures(item);
     match cap {
       Some(matches) => dms_matches_to_degrees(matches),
-      None => {
-        let out = item.parse::<f64>();
-        if out.is_err() {
-          0.0
-        } else {
-          out.unwrap()
-        }
-      }
+      None => item_to_f64(item)
     } 
+  }
+}
+
+pub fn item_to_f64(item:&str) -> f64 {
+  let out = item.parse::<f64>();
+  if out.is_err() {
+    0.0
+  } else {
+    out.unwrap()
+  }
+}
+
+pub fn has_float_key(str_key:&str) -> bool {
+  match str_key {
+    "et" | "ut" => true,
+    _ => false
+  }
 }
