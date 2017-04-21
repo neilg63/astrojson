@@ -12,4 +12,6 @@ This bring back not only the positions of all celestial bodies for a given time 
 
 The JSON output can then be easily integrated with other Web or desktop applications.
 
-I chose Rust rather than Go or NodeJS mainly to optimise performance. This is my first rust project and is used in production on AstroIQ.com.
+I chose Rust rather than Go or NodeJS mainly to optimise performance. This is my first rust project and is used in production on [AstroIQ.com](http://www.astroiq.com).
+
+However, the rest of the web site uses NodeJS and MongoDB at the backend with VueJS and D3. It has a separate [repository](https://github.com/neilg63/astroiq).
