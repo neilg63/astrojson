@@ -1,9 +1,9 @@
 # AstroJSON
 
-AstroJSON is a simple wrapper for the command line version of the Swiss Ephemeris astrology utility, available as swetest, that combines many queries into one convenient dataset with most combinations required for Western and Indian astrology.
+AstroJSON is a simple wrapper for the command line version of the Swiss Ephemeris astrology utility, that combines many queries into one convenient dataset with most combinations required for Western and Indian astrology.
 The development version no longer requires a shell script (available only for reference purposes). 
 
-After installing Swiss Ephemeris (apt-get install sweph on Debian / Ubuntu), you should be able to run the bundled shell scripts, which run all potential queries for a given data/time and location.
+After installing Swiss Ephemeris (apt-get install sweph on Debian / Ubuntu), you should be able to compile and run astro or set up a convenient alias, which run all potential queries for a given data/time and location.
 
 First argument: Path to astroiq.sh (which should have run permissions)
 Second argument: ISO 8601 datetime e.g. 2016-04-09T19:38:23
