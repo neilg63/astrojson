@@ -6,41 +6,44 @@ extern crate chrono;
 extern crate regex;
 
 use std::collections::HashMap;
-use std::process::Command;
+// use std::process::Command;
 use std::env;
 
+mod swetest;
 mod sweph;
 mod astro;
 
 fn main() {
   let mut in_args = env::args();
 
-  let mut coords:sweph::CoordinatesString = sweph::CoordinatesString{
+  /*let mut coords:sweph::CoordinatesString = sweph::CoordinatesString{
     lat:"0.0".to_string(),
     lng:"0.0".to_string(),
     alt:"0.0".to_string()
-  };
-  if in_args.len() > 3 {
-    let cmd = in_args.nth(1).unwrap().to_owned();
-    let datetime = in_args.next().unwrap().to_owned();
+  };*/
+  if in_args.len() > 2 {
+    //let cmd = in_args.nth(1).unwrap().to_owned();
+    let datetime = in_args.nth(1).unwrap().to_owned();
     let coord_str = in_args.next().unwrap().to_owned();
-    let euro_date:sweph::EuroDateString = sweph::iso_datetime_to_euro(datetime.as_str());
-    if coord_str.contains(",") {
+    //let euro_date:sweph::EuroDateString = sweph::iso_datetime_to_euro(datetime.as_str());
+    /*if coord_str.contains(",") {
       coords = sweph::comma_str_to_coords(coord_str.as_str());
-    }
+    }*/
 
-    let args = [euro_date.date,
+    /*let args = [euro_date.date,
       euro_date.time,
       coords.lng,
       coords.lat,
-      coords.alt];
+      coords.alt];*/
 
-    let output = Command::new(cmd)
+    /*let output = Command::new(cmd)
       .args(&args)
       .output().unwrap_or_else(|e| {
         panic!("failed to execute process: {}", e)
-    });
-    let txt:String = String::from_utf8_lossy(&output.stdout).into_owned();
+    });*/
+    //let txt:String = String::from_utf8_lossy(&output.stdout).into_owned();
+
+    let txt:String = swetest::fetch(datetime.as_str(), coord_str.as_str());
     let astro_data:astro::AstroData = output_to_astro_data(txt);
     let serialized = serde_json::to_string(&astro_data).unwrap();
     println!("{}",serialized);
@@ -112,7 +115,7 @@ fn output_to_astro_data(txt:String) -> astro::AstroData {
     } 
   }
   let mut bodies:HashMap<String,astro::AstroObject> = HashMap::new();
-  
+
   let mut body_lngs:HashMap<String,f64> = HashMap::new();
   let body_names:Vec<&str> = astro::body_names();
   for k in body_names {

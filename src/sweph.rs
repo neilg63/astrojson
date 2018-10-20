@@ -120,20 +120,20 @@ pub fn dms_matches_to_degrees(matches:Captures) -> f64 {
   degrees
 }
 
-#[derive(Debug)]
+/*#[derive(Debug)]
 pub struct EuroDateString {
   pub date:String,
   pub time:String
-}
+}*/
 
-#[derive(Debug)]
+/*#[derive(Debug)]
 pub struct CoordinatesString {
   pub lat:String,
   pub lng:String,
   pub alt:String
-}
+}*/
 
-pub fn iso_datetime_to_euro(datestr:&str) -> EuroDateString {
+/*pub fn iso_datetime_to_euro(datestr:&str) -> EuroDateString {
   let mut parts = datestr.split("T");
   let date = parts.next().unwrap().to_owned();
   let time = parts.next().unwrap().to_owned();
@@ -143,16 +143,16 @@ pub fn iso_datetime_to_euro(datestr:&str) -> EuroDateString {
     date: vec![dt[2],dt[1],dt[0]].join(".").to_string(),
     time: vec![ti[0],ti[1]].join(".").to_string() + ti[2],
   }
-}
+}*/
 
-pub fn comma_str_to_coords(coords:&str) -> CoordinatesString {
+/*pub fn comma_str_to_coords(coords:&str) -> CoordinatesString {
   let mut parts = coords.split(",");
   CoordinatesString {
     lat: parts.next().unwrap().to_owned(),
     lng: parts.next().unwrap().to_owned(),
     alt: parts.next().unwrap().to_owned()
   } 
-}
+}*/
 
 pub trait DmsToDec {
   fn dms_to_decimal(&self) -> f64;

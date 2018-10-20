@@ -94,18 +94,18 @@ pub fn aspect_groups() -> Vec<AspectData> {
   let mut ag:Vec<AspectData> = Vec::new();
   ag.push(AspectData::new("opposition",180.0));
   ag.push(AspectData::new("quadnovile",160.0));
-  ag.push(AspectData::new("triseptile",(360.0/7.0*3.0) )); // 154.28571
+  ag.push(AspectData::new("triseptile", 360.0/7.0*3.0 )); // 154.28571
   ag.push(AspectData::new("inconjunction",150.0));
   ag.push(AspectData::new("biquintile",135.0));
   ag.push(AspectData::new("sesquisquare",144.0));
   ag.push(AspectData::new("trine",120.0));
   ag.push(AspectData::new("tridecile",108.0));
-  ag.push(AspectData::new("biseptile",(360.0/3.5))); // 102.85714
+  ag.push(AspectData::new("biseptile",360.0/3.5 )); // 102.85714
   ag.push(AspectData::new("square",90.0));
   ag.push(AspectData::new("binovile",80.0));
   ag.push(AspectData::new("quintile",72.0));
   ag.push(AspectData::new("sextile",60.0));
-  ag.push(AspectData::new("septile",(360.0/7.0))); // 51.42857
+  ag.push(AspectData::new("septile", 360.0/7.0 )); // 51.42857
   ag.push(AspectData::new("semisquare",45.0));
   ag.push(AspectData::new("novile",40.0));
   ag.push(AspectData::new("dectile",36.0));
@@ -226,7 +226,8 @@ pub fn body_names<'a>() -> Vec<&'a str> {
     "pholus",
     "chiron",
     "pallas",
-    "juno"]
+    "juno",
+    "sedna"]
 }
 
 pub fn add_rahuketu(bodies:&mut HashMap<String,Vec<f64>>,vals:&Vec<f64>) {
